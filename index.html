@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full antialiased">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cargando…</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    [x-cloak] { display: none !important; }
+    html { font-size: calc(16px * var(--ui-scale, 1)); }
+    body { background-color: var(--app-bg, #f8fafc) !important; font-family: var(--app-font, "Plus Jakarta Sans", Inter, system-ui, sans-serif) !important; }
+    .bg-app-surface { background-color: var(--app-bg, #f8fafc) !important; }
+
+    /* ── Colores de marca ── */
+    .bg-indigo-600 { background-color: var(--app-primary, #4f46e5) !important; }
+    .bg-indigo-500 { background-color: color-mix(in srgb, var(--app-primary, #4f46e5) 86%, black) !important; }
+    .bg-indigo-700 { background-color: color-mix(in srgb, var(--app-primary, #4f46e5) 76%, black) !important; }
+    .text-indigo-600, .text-indigo-700 { color: var(--app-primary, #4f46e5) !important; }
+    .border-indigo-600 { border-color: var(--app-primary, #4f46e5) !important; }
+    .focus\:border-indigo-500:focus { border-color: var(--app-primary, #4f46e5) !important; }
+    .bg-slate-900 { background-color: var(--app-accent, #0f172a) !important; }
+    .hover\:bg-slate-800:hover { background-color: color-mix(in srgb, var(--app-accent, #0f172a) 85%, white) !important; }
+    .bg-indigo-50, .bg-indigo-50\/70, .bg-indigo-50\/40, .bg-indigo-50\/10 { background-color: color-mix(in srgb, var(--app-primary, #4f46e5) 10%, var(--app-surface, #fff)) !important; }
+    .hover\:bg-indigo-100:hover, .hover\:bg-indigo-100\/80:hover { background-color: color-mix(in srgb, var(--app-primary, #4f46e5) 18%, var(--app-surface, #fff)) !important; }
+    .border-indigo-200, .border-indigo-200\/60 { border-color: color-mix(in srgb, var(--app-primary, #4f46e5) 28%, var(--app-surface, #fff)) !important; }
+
+    /* ── Superficie ── */
+    .bg-white { background-color: var(--app-surface, #fff) !important; }
+    .bg-white\/85 { background-color: color-mix(in srgb, var(--app-surface, #fff) 85%, transparent) !important; }
+
+    /* ── Esquinas ── */
+    html[data-radius="sharp"] :is(.rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl) { border-radius: 3px !important; }
+    html[data-radius="round"] .rounded-lg { border-radius: 14px !important; }
+    html[data-radius="round"] .rounded-xl { border-radius: 18px !important; }
+    html[data-radius="round"] .rounded-2xl { border-radius: 28px !important; }
+
+    /* Modo oscuro: fondo, tarjetas y texto mantienen contraste en toda la app. */
+    html.dark {
+      color-scheme: dark;
+      --theme-border: color-mix(in srgb, var(--app-surface, #111827) 72%, white 28%);
+      --theme-hover: color-mix(in srgb, var(--app-surface, #111827) 82%, white 18%);
+    }
+    html.dark body { color: #e5eaf3; }
+    html.dark :is(.bg-white, .bg-white\/85) { background-color: var(--app-surface, #151d2e) !important; }
+    html.dark :is(.bg-slate-50, .bg-slate-50\/50, .bg-slate-50\/70, .bg-slate-50\/80) { background-color: var(--app-bg, #0b1120) !important; }
+    html.dark :is(.bg-slate-100, .bg-slate-100\/70, .bg-slate-100\/80) { background-color: var(--theme-hover) !important; }
+    html.dark :is(.hover\:bg-slate-50:hover, .hover\:bg-slate-100:hover, .hover\:bg-slate-100\/70:hover, .hover\:bg-slate-100\/80:hover) { background-color: var(--theme-hover) !important; }
+    html.dark .bg-indigo-50, html.dark .bg-indigo-50\/70, html.dark .bg-indigo-50\/40, html.dark .bg-indigo-50\/10 { background-color: color-mix(in srgb, var(--app-primary, #4f46e5) 22%, var(--app-surface, #151d2e)) !important; }
+    html.dark :is(.bg-amber-50, .bg-emerald-50, .bg-rose-50) { background-color: var(--theme-hover) !important; }
+    html.dark :is(.border-slate-100, .border-slate-200, .border-slate-200\/80, .border-slate-200\/60, .border-slate-300, .border-indigo-200, .border-indigo-200\/60, .border-emerald-200, .border-rose-200, .border-amber-200) { border-color: var(--theme-border) !important; }
+    html.dark .divide-slate-100 > :not([hidden]) ~ :not([hidden]) { border-color: var(--theme-border) !important; }
+    html.dark :is(.text-slate-900, .text-slate-800, .text-indigo-950) { color: #f1f5f9 !important; }
+    html.dark :is(.text-slate-700, .text-slate-600) { color: #cbd5e1 !important; }
+    html.dark :is(.text-slate-500, .text-slate-400) { color: #9aa9bd !important; }
+    html.dark :is(.text-indigo-600, .text-indigo-700) { color: color-mix(in srgb, var(--app-primary, #4f46e5) 58%, white) !important; }
+    html.dark :is(.text-rose-600, .text-rose-700, .text-rose-800) { color: #fda4af !important; }
+    html.dark :is(.text-emerald-600, .text-emerald-700, .text-emerald-800) { color: #6ee7b7 !important; }
+    html.dark :is(.text-amber-600, .text-amber-700, .text-amber-800) { color: #fcd34d !important; }
+    html.dark table { color: #e5eaf3; }
+    html.dark th { background-color: var(--app-bg, #0b1120) !important; color: #9aa9bd !important; border-color: var(--theme-border) !important; }
+    html.dark td { border-color: var(--theme-border) !important; }
+    html.dark tr:hover { background-color: var(--theme-hover) !important; }
+    html.dark input:not([type="checkbox"]):not([type="radio"]):not([type="color"]):not([type="file"]):not([type="range"]), html.dark select, html.dark textarea { background-color: var(--app-bg, #0b1120); color: #e5eaf3; border-color: var(--theme-border); }
+    html.dark ::placeholder { color: #8191a8; }
+    html.dark option { background-color: var(--app-surface, #151d2e); color: #e5eaf3; }
+    html.dark .help-btn { border-color: var(--theme-border); }
+    html.dark .bg-indigo-600 { background-color: color-mix(in srgb, var(--app-primary, #4f46e5) 82%, white) !important; }
+    button { transition: color .16s ease, background-color .16s ease, border-color .16s ease, box-shadow .16s ease, transform .16s ease; }
+    button:active { transform: translateY(1px); }
+    :focus-visible { outline: 2px solid var(--app-primary, #4f46e5); outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+  </style>
+  <script defer src="/app.js?v=46.0.0"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script>
+</head>
+<body x-data="pressApp()" x-init="init()" :style="themeVars" class="min-h-full text-slate-900 selection:bg-indigo-600 selection:text-white">
+
+  <!-- ================= VISTA PÚBLICA (NEWSROOM) ================= -->
+  <div x-show="activeView === 'feed'" x-cloak class="min-h-screen flex flex-col pb-24">
+    
+    <!-- Topbar Minimalista -->
+    <header class="sticky top-0 z-30 h-16 bg-white/85 backdrop-blur-md border-b border-slate-200/80 px-4 lg:px-8 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 shrink-0 overflow-hidden rounded-xl bg-slate-900 text-white flex items-center justify-center font-extrabold text-xs tracking-wider shadow-sm">
+          <img x-show="publicConfig.app_logo_url" :src="publicConfig.app_logo_url" alt="Logo de la aplicación" class="h-full w-full object-contain">
+          <span x-show="!publicConfig.app_logo_url" x-text="appInitials"></span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2.5">
+            <h1 class="font-bold text-sm tracking-tight text-slate-900" x-text="publicConfig.app_title"></h1>
+            <span class="hidden sm:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/60">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> En línea
+            </span>
+            
+          </div>
+          <p class="text-[11px] text-slate-500 font-medium" x-text="'Ciclo activo: ' + (publicConfig.window_label || 'turno de 24 horas')"></p>
+        </div>
+      </div>
+
+      <!-- Estado de Sincronización + Botón Admin -->
+      <div class="flex items-center gap-3">
+        <div class="hidden sm:flex items-center gap-2.5 px-3 py-1.5 rounded-lg bg-slate-100/80 border border-slate-200/60 text-xs">
+          <template x-if="scraping.running">
+            <span class="w-3.5 h-3.5 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin"></span>
+          </template>
+          <template x-if="!scraping.running">
+            <span class="w-2 h-2 rounded-full" :class="pendingAiCount > 0 ? 'bg-amber-500 animate-pulse' : 'bg-indigo-600'"></span>
+          </template>
+          <span class="font-semibold text-slate-700" x-text="statusSummary.title"></span>
+          <span class="text-slate-400">·</span>
+          <span class="text-slate-500" x-text="statusSummary.sub"></span>
+        </div>
+
+        <button type="button" @click="toggleDarkMode()" class="inline-flex items-center justify-center h-9 w-9 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition" :title="isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'" :aria-label="isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'">
+          <svg x-show="!isDark" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg x-show="isDark" x-cloak class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+
+        <button @click="triggerManualRefresh()" :disabled="refreshing" class="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 transition shadow-sm disabled:opacity-50" title="Actualizar noticias ahora">
+          <svg class="w-3.5 h-3.5" :class="refreshing && 'animate-spin'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
+          <span class="hidden md:inline">Actualizar</span>
+        </button>
+
+        <button @click="openAdmin()" class="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition shadow-sm">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span class="hidden sm:inline">Configuración</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Layout Principal: Sidebar de Diarios + Feed Central -->
+    <main class="max-w-7xl w-full mx-auto px-4 lg:px-8 pt-6 grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-6 flex-1">
+      
+      <!-- Sidebar Izquierdo: Directorio de Diarios -->
+      <aside class="lg:sticky lg:top-[5.5rem] lg:h-[calc(100vh-110px)] flex flex-col bg-white border border-slate-200/80 rounded-2xl p-3.5 shadow-sm">
+        <div class="flex items-center justify-between px-1.5 pb-2.5 border-b border-slate-100">
+          <span class="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-400">Medios con noticias </span>
+          <span class="px-2 py-0.5 text-[11px] font-bold rounded-full bg-slate-100 text-slate-700" x-text="sourcesWithArticles.length"></span>
+        </div>
+
+        <div class="relative my-2.5">
+          <input type="search" x-model="sourceSearch" placeholder="Filtrar diario..." class="w-full h-8 pl-8 pr-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500 focus:bg-white transition">
+          <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </div>
+
+        <button @click="selectedSourceId = null" class="w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs font-semibold transition mb-1" :class="selectedSourceId === null ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'">
+          <span>Todos los medios</span>
+          <span class="text-[11px]" x-text="allArticles.length"></span>
+        </button>
+
+        <div class="overflow-y-auto flex-1 space-y-0.5 pr-1">
+          <template x-if="filteredPublicSources.length === 0">
+            <p class="px-2.5 py-6 text-center text-[11px] text-slate-400">Ningún medio tiene noticias cargadas en este turno.</p>
+          </template>
+          <template x-for="src in filteredPublicSources" :key="src.id">
+            <button @click="selectedSourceId = (selectedSourceId === Number(src.id) ? null : Number(src.id))" class="w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-left text-xs transition group" :class="selectedSourceId === Number(src.id) ? 'bg-indigo-600 text-white font-semibold shadow-sm' : 'text-slate-700 hover:bg-slate-100/70'">
+              <div class="truncate pr-2">
+                <div class="truncate font-medium" x-text="src.name"></div>
+                <div class="text-[10px] truncate" :class="selectedSourceId === Number(src.id) ? 'text-indigo-200' : 'text-slate-400'" x-text="src.province || 'General'"></div>
+              </div>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-semibold" :class="selectedSourceId === Number(src.id) ? 'bg-indigo-700 text-white' : 'bg-slate-100 text-slate-500'" x-text="getSourceArticleCount(src.id)"></span>
+            </button>
+          </template>
+        </div>
+      </aside>
+
+      <!-- Columna Central: Barra de Comando + Lista de Noticias -->
+      <section class="min-w-0 space-y-4">
+        
+        <!-- Command Bar -->
+        <div class="bg-white border border-slate-200/80 rounded-2xl p-4 shadow-sm space-y-3">
+          <div class="flex flex-col sm:flex-row gap-2.5">
+            <div class="relative flex-1">
+              <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input type="search" x-ref="searchInput" x-model.debounce.250ms="searchQuery" @keydown.window.slash="if($el !== document.activeElement && !(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName) || document.activeElement.isContentEditable)) { $event.preventDefault(); $el.focus() }" placeholder="Buscar por titular, palabra clave o diario... (Presioná /)" class="w-full h-9 pl-9 pr-4 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 transition">
+            </div>
+
+            <select x-show="availableProvinces.length > 1" x-model="provinceFilter" class="h-9 px-3 text-xs font-medium bg-slate-50 border border-slate-200 rounded-xl text-slate-700 focus:outline-none focus:border-indigo-500">
+              <option value="ALL">Todas las regiones</option>
+              <template x-for="p in availableProvinces" :key="p">
+                <option :value="p" x-text="p"></option>
+              </template>
+            </select>
+
+            <div class="flex flex-wrap items-center gap-1.5">
+              <button @click="toggleSelectAllVisible()" class="h-9 px-3 rounded-xl border border-indigo-200 bg-indigo-50/70 hover:bg-indigo-100/80 text-xs font-semibold text-indigo-700 transition whitespace-nowrap">
+                Seleccionar exportables
+              </button>
+              
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between gap-2 pt-2 border-t border-slate-100">
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <span class="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 mr-1">Temas activos: </span>
+              <template x-if="detectedKeywords.length === 0">
+                <span class="text-xs text-slate-400 italic">Sin filtro de palabras clave (mostrando todo el turno)</span>
+              </template>
+              <template x-for="kw in detectedKeywords" :key="kw">
+                <button @click="searchQuery = (searchQuery === kw ? '' : kw)" class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold border transition" :class="searchQuery.toLowerCase() === kw.toLowerCase() ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-indigo-50/70 text-indigo-700 border-indigo-200/60 hover:bg-indigo-100'" x-text="kw"></button>
+              </template>
+            </div>
+            <div class="flex items-center gap-3 shrink-0">
+              <span class="text-xs font-medium text-slate-500"><strong class="text-slate-900" x-text="filteredArticles.length"></strong> noticias</span>
+              
+            </div>
+          </div>
+        </div>
+
+        <p x-show="(publicConfig.provinces_of_interest || []).length === 0" class="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-xs text-amber-800">
+          Para exportar el documento Word agrupado por provincias, asegurate de tener configuradas las <strong>Zonas de interés</strong> en el panel de Administración.
+        </p>
+
+        <!-- Feed de Tarjetas de Noticias -->
+        <div class="space-y-2.5">
+          <template x-if="filteredArticles.length === 0">
+            <div class="bg-white border border-dashed border-slate-300 rounded-2xl p-12 text-center">
+              <p class="text-sm font-semibold text-slate-700">No se encontraron noticias para estos filtros</p>
+              <p class="text-xs text-slate-500 mt-1">Probá limpiar la búsqueda o actualizar el feed de diarios.</p>
+            </div>
+          </template>
+
+          <template x-for="art in pageArticles" :key="art.id">
+            <article @click="toggleArticleSelection(art)" class="group relative bg-white rounded-2xl p-4 border transition-all duration-150 cursor-pointer" :class="isSelected(art.id) ? 'border-indigo-600 ring-2 ring-indigo-600/20 bg-indigo-50/10' : 'border-slate-200/80 hover:border-slate-300 hover:shadow-sm'">
+              
+              <div class="flex items-start gap-3.5">
+                <div class="pt-0.5 shrink-0">
+                  <input type="checkbox" :checked="isSelected(art.id)" :disabled="!canExport(art)" @click.stop="toggleArticleSelection(art)" class="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 disabled:opacity-30 cursor-pointer">
+                </div>
+
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center flex-wrap gap-2 text-[11px] text-slate-500 mb-1">
+                    <span class="font-bold text-slate-800" x-text="art.source?.name || 'Medio'"></span>
+                    <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 font-semibold text-[10px]" x-text="art.source?.province || 'General'"></span>
+                    <span>·</span>
+                    <span x-text="formatDateTime(fechaVisible(art))"></span>
+
+                    <template x-for="kw in (art.matched_keywords || [])" :key="kw">
+                      <span class="px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-semibold text-[10px] border border-indigo-200/60" x-text="'#' + kw"></span>
+                    </template>
+                  </div>
+
+                  <h2 class="text-[15px] font-bold text-slate-900 leading-snug mb-2 group-hover:text-indigo-950" x-text="art.title"></h2>
+
+                  <div class="rounded-xl p-3 text-xs leading-relaxed border-l-4" :class="getSynthesisStyle(art).boxClass">
+                    <p x-text="getSynthesisStyle(art).text"></p>
+                  </div>
+
+                  <div class="flex items-center justify-between mt-2.5 pt-1 text-[11px]">
+                    <span class="font-semibold inline-flex items-center gap-1.5" :class="getSynthesisStyle(art).badgeClass">
+                      <span class="w-1.5 h-1.5 rounded-full bg-current"></span>
+                      <span x-text="getSynthesisStyle(art).label"></span>
+                    </span>
+
+                    <a :href="art.link" target="_blank" rel="noopener noreferrer" @click.stop class="inline-flex items-center gap-1 font-semibold text-slate-500 hover:text-indigo-600 transition">
+                      <span>Leer nota original</span>
+                      <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </template>
+          <nav x-show="filteredArticles.length > articlesPerPage" class="flex items-center justify-between rounded-xl border border-slate-200 bg-white p-3" aria-label="Paginación de noticias">
+            <button type="button" @click="articlePage=Math.max(1, articlePage-1)" :disabled="articlePage <= 1" class="rounded-lg border border-slate-200 px-3 py-2 text-xs font-semibold disabled:opacity-40">Anterior</button>
+            <span class="text-xs text-slate-500" x-text="`Página ${Math.min(articlePage, articlePageCount)} de ${articlePageCount} · ${filteredArticles.length} noticias`"></span>
+            <button type="button" @click="articlePage=Math.min(articlePageCount, articlePage+1)" :disabled="articlePage >= articlePageCount" class="rounded-lg border border-slate-200 px-3 py-2 text-xs font-semibold disabled:opacity-40">Siguiente</button>
+          </nav>
+        </div>
+      </section>
+    </main>
+
+    <!-- ================= BARRA FLOTANTE INFERIOR (WORD BUILDER DOCK) ================= -->
+    <div x-show="selectedIds.length > 0" x-transition.opacity.duration.200ms class="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-2rem)] max-w-2xl bg-slate-900 text-white rounded-2xl p-3 shadow-2xl border border-slate-700/80">
+      <div x-show="showSelectedDrawer" x-transition class="mb-3 pb-3 border-b border-slate-800 max-h-52 overflow-y-auto space-y-1.5 px-1">
+        <div class="flex items-center justify-between text-[11px] text-slate-400 font-semibold uppercase tracking-wider mb-2">
+          <span>Noticias en el informe</span>
+          <button @click="showSelectedDrawer = false" class="text-slate-400 hover:text-white">Cerrar ✕</button>
+        </div>
+        <template x-for="id in selectedIds" :key="id">
+          <div class="flex items-center justify-between gap-2 text-xs bg-slate-800/70 px-3 py-1.5 rounded-lg">
+            <span class="truncate text-slate-200" x-text="getArticleTitle(id)"></span>
+            <button @click="removeSelected(id)" class="text-rose-400 hover:text-rose-300 font-bold shrink-0">Quitar</button>
+          </div>
+        </template>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-3 pl-2">
+          <span class="px-2.5 py-1 rounded-lg bg-indigo-500/20 text-indigo-300 font-extrabold text-xs border border-indigo-400/30" x-text="selectedIds.length"></span>
+          <div class="text-xs">
+            <p class="font-semibold text-white inline-flex items-center gap-1.5"><span x-text="selectedIds.length === 1 ? 'Noticia lista para exportar' : 'Noticias listas para exportar'"></span> </p>
+            <button @click="showSelectedDrawer = !showSelectedDrawer" class="text-[11px] text-indigo-300 hover:underline font-medium" x-text="showSelectedDrawer ? 'Ocultar lista' : 'Ver seleccionadas'"></button>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button @click="clearSelection()" class="px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition">
+            Vaciar
+          </button>
+          <button @click="exportSelectedArticles()" :disabled="exporting" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition shadow-lg shadow-indigo-600/30 disabled:opacity-50">
+            <span x-show="exporting" class="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+            <span x-text="exporting ? 'Generando Word...' : 'Exportar a Word (.docx)'"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= VISTA ADMINISTRACIÓN ================= -->
+  <div x-show="activeView !== 'feed'" x-cloak class="min-h-screen grid grid-cols-1 lg:grid-cols-[250px_1fr] bg-app-surface">
+    
+    <!-- Sidebar Admin -->
+    <aside class="bg-white border-b lg:border-b-0 lg:border-r border-slate-200 p-4 flex flex-col justify-between lg:sticky lg:top-0 lg:h-screen">
+      <div>
+        <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-100">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 shrink-0 overflow-hidden rounded-lg bg-indigo-600 text-white flex items-center justify-center font-extrabold text-xs">
+              <img x-show="publicConfig.app_logo_url" :src="publicConfig.app_logo_url" alt="Logo de la aplicación" class="h-full w-full object-contain">
+              <span x-show="!publicConfig.app_logo_url" x-text="appInitials"></span>
+            </div>
+            <div>
+              <strong class="text-xs font-bold block text-slate-900">Panel de Control</strong>
+              <small class="text-[11px] text-slate-400">Configuración global</small>
+            </div>
+          </div>
+        </div>
+
+        <nav class="space-y-5">
+          <div>
+            <span class="px-2.5 text-[10px] font-bold uppercase tracking-wider text-slate-400">Operación</span>
+            <div class="mt-1.5 space-y-1">
+              <button @click="navigateToView('sources')" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition" :class="activeView === 'sources' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'">
+                <span>▤</span> Fuentes periodísticas
+              </button>
+              <button @click="navigateToView('keywords')" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition" :class="activeView === 'keywords' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'">
+                <span>⌕</span> Temas y palabras clave
+              </button>
+              <button @click="navigateToView('zones')" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition" :class="activeView === 'zones' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'">
+                <span>◎</span> Zonas de interés
+              </button>
+              <button @click="navigateToView('system')" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition" :class="activeView === 'system' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'">
+                <span>◷</span> Estado y monitoreo
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <span class="px-2.5 text-[10px] font-bold uppercase tracking-wider text-slate-400">Preferencias</span>
+            <div class="mt-1.5 space-y-1">
+              <button @click="navigateToView('ai-config')" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition" :class="activeView === 'ai-config' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'">
+                <span>✳</span> Proveedor de IA
+              </button>
+              <button @click="navigateToView('theme')" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition" :class="activeView === 'theme' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'">
+                <span>◈</span> Apariencia y colores
+              </button>
+              <button @click="navigateToView('identity')" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition" :class="activeView === 'identity' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'">
+                <span>◉</span> Horario del turno
+              </button>
+              <button @click="navigateToView('report')" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition" :class="activeView === 'report' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'">
+                <span>▧</span> Formato del Word
+              </button>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="pt-4 border-t border-slate-100 space-y-1.5">
+        <button type="button" @click="toggleDarkMode()" class="w-full flex items-center justify-center gap-2 h-9 px-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 transition" x-text="isDark ? '☀ Cambiar a modo claro' : '☾ Cambiar a modo oscuro'"></button>
+        <button @click="navigateToView('feed')" class="w-full flex items-center justify-center gap-2 h-9 px-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 transition">
+          ← Volver a las noticias
+        </button>
+        <button @click="logoutAdmin()" class="w-full h-9 px-3 rounded-xl text-xs font-semibold text-rose-600 hover:bg-rose-50 transition">
+          Cerrar sesión
+        </button>
+      </div>
+    </aside>
+
+    <!-- Contenido Principal Admin -->
+    <main class="p-6 lg:p-10 max-w-5xl w-full mx-auto space-y-6">
+      
+      <div x-show="adminBackgroundText" class="bg-indigo-50 border-l-4 border-indigo-600 p-4 rounded-r-xl text-xs text-indigo-950 font-medium" x-text="adminBackgroundText"></div>
+
+      <!-- 1. FUENTES PERIODÍSTICAS -->
+      <div x-show="activeView === 'sources'" class="space-y-6">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-600">01 · Operación</span>
+          <h2 class="text-2xl font-bold tracking-tight text-slate-900 mt-1 flex items-center gap-2.5">Fuentes periodísticas </h2>
+          <p class="text-xs text-slate-500 mt-1">Administrá los portales de noticias y verificá su estado de conexión.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <form @submit.prevent="createSource()" class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-3.5">
+            <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">Agregar un diario </h3>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Dirección web (URL) *</label>
+              <input type="text" x-model="newSourceUrl" placeholder="Ej: midiario.com" required class="w-full h-9 px-3 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Nombre del medio (opcional)</label>
+              <input type="text" x-model="newSourceName" placeholder="Se detecta automáticamente" class="w-full h-9 px-3 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500">
+            </div>
+            <button type="submit" :disabled="creatingSource" class="w-full h-9 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition disabled:opacity-50" x-text="creatingSource ? 'Analizando sitio...' : 'Verificar y agregar'"></button>
+          </form>
+
+          <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col justify-between space-y-3">
+            <div>
+              <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">Importar lista masiva (.txt) </h3>
+              <p class="text-xs text-slate-500 mt-1">Un diario por línea: URL, URL | nombre o nombre | URL.</p>
+            </div>
+            <label class="border-2 border-dashed border-slate-200 hover:border-indigo-400 rounded-xl p-6 text-center cursor-pointer transition bg-slate-50/50">
+              <input type="file" accept=".txt,text/plain" @change="handleTxtImport($event)" :disabled="importingSources" class="hidden">
+              <span class="text-xs font-semibold text-indigo-600 block">Elegir archivo .txt</span>
+              <span class="text-[11px] text-slate-400 mt-1 block" x-text="importStatusText || 'Se agregan URLs públicas; el barrido detecta noticias y feeds después.'"></span>
+            </label>
+            <div x-show="importingSources" class="flex items-center gap-2 text-[11px] text-slate-600" aria-live="polite">
+              <svg class="h-4 w-4 animate-spin text-indigo-600" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-opacity=".25" stroke-width="3"/><path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+              <span>Incorporando diarios; el barrido detectará sus noticias al terminar.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+          <div class="p-4 border-b border-slate-100 flex flex-wrap items-center justify-between gap-3">
+            <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">Fuentes (<span x-text="filteredAdminSources.length"></span>/<span x-text="allSources.length"></span>) <button type="button" @click.stop="openHelp('admin-directory')" class="help-btn inline-flex items-center justify-center w-5 h-5 rounded-full border border-slate-300 text-slate-400 hover:text-amber-600 hover:border-amber-400 transition shrink-0" :title="helpTopics['admin-directory']?.body?.[0] || 'Abrir ayuda contextual'" aria-label="Ayuda: Directorio de medios"><svg class="w-3.5 h-3.5 text-amber-500 fill-amber-400/20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></button></h3>
+            <div class="flex items-center gap-2">
+              <select x-model="adminSourceStatusFilter" class="h-8 px-2.5 text-xs border border-slate-200 rounded-lg" aria-label="Filtrar estado de fuentes">
+                <option value="active">Operativas</option>
+                <option value="inactive">Pendientes o con fallas</option>
+                <option value="all">Todas</option>
+              </select>
+              <input type="search" x-model="adminSourceFilter" placeholder="Buscar medio..." class="h-8 px-3 text-xs border border-slate-200 rounded-lg">
+              <select x-model="adminSourceProvince" class="h-8 px-2.5 text-xs border border-slate-200 rounded-lg">
+                <option value="ALL">Todas las provincias</option>
+                <template x-for="p in adminAvailableProvinces" :key="p">
+                  <option :value="p" x-text="p"></option>
+                </template>
+              </select>
+            </div>
+          </div>
+          <div class="max-h-[34rem] overflow-auto">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="bg-slate-50 text-slate-400 text-[10px] font-bold uppercase tracking-wider border-b border-slate-100">
+                  <th class="py-3 px-4">Medio</th>
+                  <th class="py-3 px-4">Región</th>
+                  <th class="py-3 px-4">Método</th>
+                  <th class="py-3 px-4">Estado</th>
+                  <th class="py-3 px-4 text-right">Acciones</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <template x-if="filteredAdminSources.length === 0"><tr><td colspan="5" class="p-6 text-center text-xs text-slate-500">No hay fuentes para este filtro. Probá ver pendientes o todas.</td></tr></template>
+                <template x-for="s in filteredAdminSources" :key="s.id">
+                  <tr class="hover:bg-slate-50/80">
+                    <td class="py-3 px-4">
+                      <a :href="s.base_url" target="_blank" class="font-bold text-slate-900 hover:text-indigo-600 block" x-text="s.name"></a>
+                      <span class="text-[11px] text-slate-400" x-text="s.base_url"></span>
+                      <button type="button" @click="editSourceName(s)" class="ml-2 text-[10px] font-semibold text-indigo-600 hover:underline">Renombrar</button>
+                    </td>
+                    <td class="py-3 px-4">
+                      <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium text-[11px]" x-text="s.province"></span>
+                      <span x-show="s.province_manual" class="ml-1 text-[10px] text-indigo-600">manual</span>
+                      <button type="button" @click="editSourceRegion(s)" class="ml-1 text-[10px] font-semibold text-indigo-600 hover:underline">Editar</button>
+                    </td>
+                    <td class="py-3 px-4 text-slate-500 font-mono text-[11px]" x-text="s.extraction_method"></td>
+                    <td class="py-3 px-4">
+                      <span class="font-semibold" :class="s.last_error ? 'text-rose-600' : s.last_checked_at ? 'text-emerald-600' : 'text-amber-600'" x-text="s.last_error ? 'No operativa · ' + s.last_error : (s.last_checked_at ? 'Extracción OK · ' + formatDateTime(s.last_checked_at) : 'Pendiente de probar')"></span>
+                    </td>
+                    <td class="py-3 px-4 text-right space-x-2 whitespace-nowrap">
+                      <button @click="testSource(s.id)" class="px-2.5 py-1 rounded-lg border border-slate-200 hover:bg-slate-100 font-semibold text-slate-700">Probar</button>
+                      <button @click="deleteSource(s.id)" class="px-2 py-1 text-rose-600 hover:underline font-semibold">Eliminar</button>
+                    </td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <details class="bg-white rounded-2xl border border-slate-200/80 shadow-sm">
+          <summary class="cursor-pointer list-none p-4 text-sm font-bold text-slate-900">Registro de importaciones (<span x-text="importLogTotal"></span>)</summary>
+          <div class="flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 p-3">
+            <input type="search" x-model.debounce.300ms="importLogSearch" placeholder="Buscar diario, URL o resultado..." aria-label="Buscar en el registro de importaciones" class="h-9 min-w-56 flex-1 rounded-lg border border-slate-200 px-3 text-xs">
+            <span class="text-[11px] text-slate-500" x-text="importLogTotal ? `${importLogPage * importLogPageSize + 1}–${Math.min((importLogPage + 1) * importLogPageSize, importLogTotal)} de ${importLogTotal}` : 'Sin resultados'"></span>
+          </div>
+          <div class="max-h-72 overflow-auto border-t border-slate-100">
+            <table class="w-full text-left text-xs">
+              <thead class="sticky top-0 bg-slate-50 text-[10px] uppercase tracking-wider text-slate-400"><tr><th class="px-4 py-2">Resultado</th><th class="px-4 py-2">Medio</th><th class="px-4 py-2">Detalle</th><th class="px-4 py-2">Fecha</th></tr></thead>
+              <tbody class="divide-y divide-slate-100">
+                <template x-for="entry in importLogs" :key="entry.id"><tr>
+                  <td class="px-4 py-2 font-semibold" :class="entry.status === 'agregado' ? 'text-emerald-700' : entry.status === 'duplicado' ? 'text-amber-700' : 'text-rose-700'" x-text="entry.status"></td>
+                  <td class="px-4 py-2"><span class="block font-medium" x-text="entry.source_name || '—'"></span><a x-show="entry.source_url" :href="entry.source_url" target="_blank" rel="noopener noreferrer" class="block max-w-xs truncate text-slate-500" x-text="entry.source_url"></a></td>
+                  <td class="px-4 py-2 text-slate-600" x-text="entry.message"></td>
+                  <td class="px-4 py-2 whitespace-nowrap text-slate-500" x-text="formatDateTime(entry.created_at)"></td>
+                </tr></template>
+              </tbody>
+            </table>
+            <p x-show="importLogs.length === 0" class="p-4 text-xs text-slate-500" x-text="importLogSearch ? 'No hay resultados para esa búsqueda.' : 'Todavía no hay importaciones registradas.'"></p>
+          </div>
+          <div class="flex items-center justify-end gap-2 border-t border-slate-100 p-3">
+            <button type="button" @click="moveImportLogPage(-1)" :disabled="importLogPage === 0" class="h-8 rounded-lg border border-slate-200 px-3 text-xs disabled:opacity-40">Anterior</button>
+            <span class="text-[11px] text-slate-500" x-text="`${importLogPage + 1}/${importLogPageCount}`"></span>
+            <button type="button" @click="moveImportLogPage(1)" :disabled="(importLogPage + 1) * importLogPageSize >= importLogTotal" class="h-8 rounded-lg border border-slate-200 px-3 text-xs disabled:opacity-40">Siguiente</button>
+          </div>
+        </details>
+      </div>
+
+      <!-- 2. PALABRAS CLAVE -->
+      <div x-show="activeView === 'keywords'" class="space-y-6 max-w-3xl">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-600">02 · Personalización</span>
+          <h2 class="text-2xl font-bold tracking-tight text-slate-900 mt-1 flex items-center gap-2.5">Temas y palabras clave </h2>
+          <p class="text-xs text-slate-500 mt-1">Sin palabras clave se muestran todas las noticias sin gastar IA. Con al menos una, se filtran y resumen automáticamente.</p>
+        </div>
+
+        <form @submit.prevent="createKeyword()" class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex gap-3 items-end">
+          <div class="flex-1">
+            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Nueva palabra o tema</label>
+            <input type="text" x-model="newKeyword" placeholder="Ej: paritarias, obras públicas, ruta 5..." required class="w-full h-9 px-3 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500">
+          </div>
+          <button type="submit" class="h-9 px-5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition">Agregar tema</button>
+        </form>
+
+        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
+          <h3 class="text-sm font-bold text-slate-900">Palabras activas (<span x-text="allKeywords.length"></span>)</h3>
+          <template x-if="allKeywords.length === 0">
+            <p class="text-xs text-slate-400 py-4 text-center">No hay palabras clave cargadas.</p>
+          </template>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <template x-for="k in allKeywords" :key="k.id">
+              <div class="flex items-center justify-between px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50">
+                <div>
+                  <span class="font-bold text-xs text-slate-900" x-text="k.word"></span>
+                  <span class="text-[11px] text-slate-400 ml-2" x-text="countKeywordMatches(k.word) + ' notas hoy'"></span>
+                </div>
+                <button @click="deleteKeyword(k.id)" class="text-xs font-semibold text-rose-600 hover:text-rose-800">Quitar</button>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. ZONAS DE INTERÉS -->
+      <div x-show="activeView === 'zones'" class="space-y-6 max-w-3xl">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-600">03 · Organización</span>
+          <h2 class="text-2xl font-bold tracking-tight text-slate-900 mt-1 flex items-center gap-2.5">Zonas de interés </h2>
+          <p class="mt-1 text-sm text-slate-500">Definí las provincias y zonas disponibles para los informes. El orden se configura en Formato del Word.</p>
+        </div>
+        <section class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+          <div>
+            <label for="interest-province" class="block text-xs font-semibold text-slate-700">Agregar una provincia</label>
+            <div class="mt-1.5 flex flex-col sm:flex-row gap-2">
+              <select id="interest-province" x-model="selectedInterestProvince" class="min-w-0 flex-1 h-10 px-3 text-sm border border-slate-200 rounded-xl bg-white">
+                <option value="">Elegir provincia...</option>
+                <template x-for="region in availableInterestRegions" :key="region"><option :value="region" x-text="region"></option></template>
+              </select>
+              <button type="button" @click="addSelectedInterestProvince()" :disabled="!selectedInterestProvince" class="h-10 px-4 rounded-xl bg-indigo-600 text-white text-xs font-semibold disabled:opacity-40 disabled:cursor-not-allowed">Agregar provincia</button>
+            </div>
+          </div>
+
+          <div>
+            <label for="custom-interest-zone" class="block text-xs font-semibold text-slate-700">Agregar una zona manual</label>
+            <div class="mt-1.5 flex flex-col sm:flex-row gap-2">
+              <input id="custom-interest-zone" type="text" x-model="customInterestZone" @keydown.enter.prevent="addCustomInterestZone()" placeholder="Ej.: Región Metropolitana" class="min-w-0 flex-1 h-10 px-3 text-sm border border-slate-200 rounded-xl">
+              <button type="button" @click="addCustomInterestZone()" class="h-10 px-4 rounded-xl border border-slate-200 bg-white text-xs font-semibold text-slate-700 hover:bg-slate-50">Agregar zona</button>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-slate-200 overflow-hidden">
+            <div class="flex items-center justify-between gap-3 px-4 py-3 bg-slate-50 border-b border-slate-200">
+              <h3 class="text-xs font-bold text-slate-800">Zonas disponibles</h3>
+              <span class="text-[11px] text-slate-500" x-text="interestProvinces.length + ' zonas'"></span>
+            </div>
+            <div class="max-h-80 overflow-y-auto p-2 space-y-1.5">
+              <template x-for="(zona, indice) in interestProvinces" :key="normalizarNombreRegion(zona)">
+                <div class="flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg border border-slate-100 bg-white">
+                  <strong class="min-w-0 truncate text-sm font-medium text-slate-800" x-text="zona"></strong>
+                  <button type="button" @click="removeInterestZone(indice)" :aria-label="`Quitar ${zona}`" class="shrink-0 px-2 py-1 text-xs font-semibold text-rose-600 hover:bg-rose-50 rounded-md">Quitar</button>
+                </div>
+              </template>
+              <p x-show="interestProvinces.length === 0" class="px-3 py-6 text-center text-xs text-slate-500">Todavía no agregaste zonas de interés.</p>
+            </div>
+          </div>
+
+          <div class="flex justify-end pt-1">
+            <button type="button" @click="saveInterestZones()" class="h-10 px-5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold">Guardar zonas de interés</button>
+          </div>
+        </section>
+      </div>
+
+      <!-- 4. PROVEEDOR DE IA -->
+      <div x-show="activeView === 'ai-config'" class="space-y-6 max-w-3xl">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-600">04 · Motor IA</span>
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900 mt-1 flex items-center gap-2.5">Proveedor de Inteligencia Artificial <button type="button" @click.stop="openHelp('admin-ai')" class="help-btn inline-flex items-center justify-center w-5 h-5 rounded-full border border-slate-300 text-slate-400 hover:text-amber-600 hover:border-amber-400 transition shrink-0" :title="helpTopics['admin-ai']?.body?.[0] || 'Abrir ayuda contextual'" aria-label="Ayuda: Proveedor de Inteligencia Artificial"><svg class="w-3.5 h-3.5 text-amber-500 fill-amber-400/20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></button></h2>
+          </div>
+          <button type="button" @click="testAiConnection()" :disabled="aiTest.busy" class="h-9 px-3.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 shadow-sm disabled:opacity-50" x-text="aiTest.busy ? 'Probando con una noticia real...' : 'Probar con una noticia real'"></button>
+        </div>
+
+        <div x-show="aiTest.visible" x-cloak class="rounded-2xl border p-4 text-xs space-y-2" :class="aiTest.ok ? 'border-emerald-200 bg-emerald-50 text-emerald-800' : 'border-rose-200 bg-rose-50 text-rose-800'" aria-live="polite">
+          <p class="font-semibold" x-text="aiTest.message"></p>
+          <template x-if="aiTest.article">
+            <p>Noticia usada: <strong x-text="aiTest.article.title"></strong> <span class="opacity-80" x-text="'(' + aiTest.article.source + ')'"></span></p>
+          </template>
+          <template x-if="aiTest.summary">
+            <div>
+              <p class="text-[11px] font-bold uppercase tracking-wider opacity-70 mb-1">Síntesis generada por la IA</p>
+              <p class="rounded-xl border-l-4 border-emerald-500 bg-emerald-50 px-3 py-2 leading-relaxed" x-text="aiTest.summary"></p>
+            </div>
+          </template>
+          <p class="text-[11px] opacity-80" x-show="aiTest.detail" x-text="aiTest.detail"></p>
+        </div>
+
+        <form @submit.prevent="saveAiSettings()" class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+          <div class="rounded-2xl border border-indigo-200/60 bg-indigo-50/40 p-4 space-y-3">
+            <div class="flex items-center gap-2"><strong class="text-xs font-bold text-slate-900">Conexión rápida</strong> </div>
+            <p class="text-[11px] leading-relaxed text-slate-600">Pegá solo tu API key: el sistema reconoce el proveedor, completa la dirección y el protocolo, consulta los modelos que tu cuenta tiene disponibles y deja elegido uno.</p>
+            <div class="flex flex-col sm:flex-row gap-2">
+              <input type="password" x-model="settingsForm.ai_api_key" @keydown.enter.prevent="detectAiProvider()" autocomplete="off" placeholder="Pegá tu API key (vacío = usar la ya guardada)" class="flex-1 h-10 px-3 text-xs border border-slate-200 rounded-xl font-normal focus:outline-none focus:border-indigo-500">
+              <button type="button" @click="detectAiProvider()" :disabled="aiDetect.busy" class="h-10 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition disabled:opacity-50 whitespace-nowrap" x-text="aiDetect.busy ? 'Detectando...' : 'Detectar y conectar'"></button>
+            </div>
+            <p class="text-[11px] text-slate-500">Clave guardada: <strong class="text-slate-700" x-text="settingsForm.key_badge || 'ninguna'"></strong></p>
+            <details :open="aiDetect.needsProvider" class="text-xs">
+              <summary class="cursor-pointer font-semibold text-slate-700">Mi clave no se reconoce o uso otro proveedor</summary>
+              <div class="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <label class="block text-xs font-semibold text-slate-700">Proveedor conocido
+                  <select x-model="aiProviderChoice" class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+                    <option value="">Detectar por la clave</option>
+                    <template x-for="p in aiCatalog" :key="p.key"><option :value="p.key" x-text="p.name"></option></template>
+                  </select>
+                </label>
+                <label class="block text-xs font-semibold text-slate-700">…o la URL de tu propio endpoint
+                  <input type="url" x-model="aiCustomUrl" placeholder="https://mi-proveedor.com/v1/chat/completions" class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+                </label>
+              </div>
+            </details>
+            <p x-show="aiDetect.message" x-cloak class="text-[11px] font-semibold" :class="aiDetect.ok ? 'text-emerald-700' : 'text-rose-700'" x-text="aiDetect.message"></p>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <label class="block text-xs font-semibold text-slate-700">Proveedor
+              <input type="text" x-model="settingsForm.ai_provider_name" required class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+            </label>
+            <label class="block text-xs font-semibold text-slate-700">URL del Endpoint
+              <input type="url" x-model="settingsForm.ai_api_url" required class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+            </label>
+            <label class="block text-xs font-semibold text-slate-700">Protocolo de API
+              <select x-model="settingsForm.ai_api_protocol" class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+                <option value="openai_compatible">Chat Completions compatible</option>
+                <option value="anthropic_messages">Anthropic Messages</option>
+              </select>
+            </label>
+            <label class="block text-xs font-semibold text-slate-700">Modelo Principal
+              <input type="text" x-model="settingsForm.ai_model" list="ai-model-options" required class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+            </label>
+            <label class="block text-xs font-semibold text-slate-700">Modelo de Respaldo
+              <input type="text" x-model="settingsForm.ai_fallback_model" list="ai-model-options" class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+              <datalist id="ai-model-options"><template x-for="m in aiDetect.models" :key="m"><option :value="m"></option></template></datalist>
+              <span class="mt-1 block text-[11px] font-normal text-slate-500">Se intenta después del principal si este falla. Disponibilidad, latencia y coste dependen del proveedor y del plan; la aplicación no consulta esos precios.</span>
+            </label>
+            <label class="block text-xs font-semibold text-slate-700">Parámetro de límite de salida
+              <select x-model="settingsForm.ai_max_output_parameter" class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+                <option value="max_completion_tokens">max_completion_tokens</option>
+                <option value="max_tokens">max_tokens</option>
+                <option value="omit">Omitir</option>
+              </select>
+            </label>
+            <div class="grid grid-cols-3 gap-2">
+              <label class="block text-xs font-semibold text-slate-700">Temp.
+                <input type="number" step="0.05" min="0" max="2" x-model="settingsForm.ai_temperature" required class="mt-1 w-full h-9 px-2.5 text-xs border border-slate-200 rounded-xl font-normal">
+              </label>
+              <label class="block text-xs font-semibold text-slate-700">Palabras
+                <input type="number" min="15" max="300" x-model="settingsForm.ai_max_words" required class="mt-1 w-full h-9 px-2.5 text-xs border border-slate-200 rounded-xl font-normal">
+              </label>
+              <label class="block text-xs font-semibold text-slate-700">Pausa (s)
+                <input type="number" min="1" max="3600" x-model="settingsForm.ai_request_interval_seconds" required class="mt-1 w-full h-9 px-2.5 text-xs border border-slate-200 rounded-xl font-normal">
+              </label>
+            </div>
+          </div>
+
+          <label class="block text-xs font-semibold text-slate-700">Mensaje al agotar cuota
+            <input type="text" x-model="settingsForm.ai_quota_exhausted_message" required class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+          </label>
+
+          <label class="block text-xs font-semibold text-slate-700">Prompt del sistema <button type="button" @click="restaurarPromptBase()" class="ml-2 font-medium text-indigo-600 underline">Restaurar predeterminado</button>
+            <textarea rows="8" x-model="settingsForm.ai_system_prompt" required class="mt-1 w-full p-3 text-xs border border-slate-200 rounded-xl font-normal leading-relaxed"></textarea>
+          </label>
+
+          <div class="flex justify-end pt-2">
+            <button type="submit" class="h-9 px-5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition">Guardar proveedor de IA</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- 5. APARIENCIA Y COLORES -->
+      <div x-show="activeView === 'theme'" class="space-y-6 max-w-2xl">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-600">05 · Personalización Visual</span>
+          <h2 class="text-2xl font-bold tracking-tight text-slate-900 mt-1 flex items-center gap-2.5">Apariencia y tema </h2>
+          <p class="text-xs text-slate-500 mt-1">Personalizá el nombre, el logo, los colores (claro y oscuro), la tipografía, el tamaño y la forma de la interfaz.</p>
+        </div>
+        <form @submit.prevent="saveThemeSettings()" class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-6">
+          <p class="rounded-xl border border-indigo-200/60 bg-indigo-50/40 px-3 py-2 text-[11px] text-slate-600">Los cambios se ven al instante como vista previa. No quedan guardados para todos hasta que pulses <strong>Guardar apariencia</strong>.</p>
+
+          <label class="block text-xs font-semibold text-slate-700">Nombre de la aplicación
+            <input type="text" x-model="settingsForm.app_title" @input="previewTheme()" required maxlength="80" class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+          </label>
+
+          <fieldset class="space-y-3">
+            <legend class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Colores</legend>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <label class="flex items-center justify-between gap-2 rounded-xl border border-slate-200 p-3 text-xs font-semibold text-slate-700">
+              <span>Color principal</span>
+              <input type="color" x-model="settingsForm.app_primary_color" @input="previewTheme()" class="h-9 w-12 shrink-0 cursor-pointer rounded border-0 bg-transparent">
+            </label>
+            <label class="flex items-center justify-between gap-2 rounded-xl border border-slate-200 p-3 text-xs font-semibold text-slate-700">
+              <span>Encabezados y botones oscuros</span>
+              <input type="color" x-model="settingsForm.app_accent_color" @input="previewTheme()" class="h-9 w-12 shrink-0 cursor-pointer rounded border-0 bg-transparent">
+            </label>
+            <label class="flex items-center justify-between gap-2 rounded-xl border border-slate-200 p-3 text-xs font-semibold text-slate-700">
+              <span>Fondo · modo claro</span>
+              <input type="color" x-model="settingsForm.app_background_color" @input="previewTheme()" class="h-9 w-12 shrink-0 cursor-pointer rounded border-0 bg-transparent">
+            </label>
+            <label class="flex items-center justify-between gap-2 rounded-xl border border-slate-200 p-3 text-xs font-semibold text-slate-700">
+              <span>Tarjetas · modo claro</span>
+              <input type="color" x-model="themeForm.surface_color" @input="previewTheme()" class="h-9 w-12 shrink-0 cursor-pointer rounded border-0 bg-transparent">
+            </label>
+            <label class="flex items-center justify-between gap-2 rounded-xl border border-slate-200 p-3 text-xs font-semibold text-slate-700">
+              <span>Fondo · modo oscuro</span>
+              <input type="color" x-model="themeForm.dark_background_color" @input="previewTheme()" class="h-9 w-12 shrink-0 cursor-pointer rounded border-0 bg-transparent">
+            </label>
+            <label class="flex items-center justify-between gap-2 rounded-xl border border-slate-200 p-3 text-xs font-semibold text-slate-700">
+              <span>Tarjetas · modo oscuro</span>
+              <input type="color" x-model="themeForm.dark_surface_color" @input="previewTheme()" class="h-9 w-12 shrink-0 cursor-pointer rounded border-0 bg-transparent">
+            </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="space-y-3">
+            <legend class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Estilo</legend>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <label class="block text-xs font-semibold text-slate-700">Modo predeterminado
+              <select x-model="themeForm.mode" @change="previewTheme()" class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+                <template x-for="o in (publicConfig.theme_options?.modes || [])" :key="o.key"><option :value="o.key" x-text="o.label"></option></template>
+              </select>
+            </label>
+            <label class="block text-xs font-semibold text-slate-700">Tipografía
+              <select x-model="themeForm.font" @change="previewTheme()" class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+                <template x-for="o in (publicConfig.theme_options?.fonts || [])" :key="o.key"><option :value="o.key" x-text="o.label"></option></template>
+              </select>
+            </label>
+            <label class="block text-xs font-semibold text-slate-700">Tamaño de la interfaz
+              <select x-model.number="themeForm.ui_scale" @change="previewTheme()" class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+                <template x-for="o in (publicConfig.theme_options?.scales || [])" :key="o.key"><option :value="o.key" x-text="o.label"></option></template>
+              </select>
+            </label>
+            <label class="block text-xs font-semibold text-slate-700">Esquinas
+              <select x-model="themeForm.radius" @change="previewTheme()" class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+                <template x-for="o in (publicConfig.theme_options?.radii || [])" :key="o.key"><option :value="o.key" x-text="o.label"></option></template>
+              </select>
+            </label>
+            </div>
+          </fieldset>
+
+          <div class="flex flex-wrap items-center gap-4 rounded-xl border border-slate-200 p-3">
+            <img x-show="settingsForm.app_logo_url" :src="settingsForm.app_logo_url" alt="Logo" class="h-12 w-12 rounded-lg border border-slate-200 object-contain">
+            <label class="flex-1 text-xs font-semibold text-slate-700">Logo de la aplicación (PNG, JPG o WebP, máximo 2 MB)
+              <input type="file" accept="image/png,image/jpeg,image/webp" @change="uploadAppLogo($event)" class="mt-1 block w-full text-xs font-normal text-slate-600">
+            </label>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-between gap-2 pt-2">
+            <div class="flex flex-wrap gap-2">
+              <button type="button" @click="resetDefaultColors()" class="h-9 px-3.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-600 transition">Restaurar valores originales</button>
+              <button type="button" @click="discardThemePreview()" class="h-9 px-3.5 rounded-xl text-xs font-semibold text-slate-500 hover:bg-slate-100 transition">Descartar cambios</button>
+            </div>
+            <button type="submit" :disabled="savingTheme" class="h-9 px-5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition disabled:opacity-50" x-text="savingTheme ? 'Guardando...' : 'Guardar apariencia'"></button>
+          </div>
+        </form>
+      </div>
+
+      <!-- 6. HORARIO DEL TURNO -->
+      <div x-show="activeView === 'identity'" class="space-y-6 max-w-2xl">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-600">06 · Ventana Operativa</span>
+          <h2 class="text-2xl font-bold tracking-tight text-slate-900 mt-1 flex items-center gap-2.5">Horario del turno y zona horaria <button type="button" @click.stop="openHelp('admin-shift')" class="help-btn inline-flex items-center justify-center w-5 h-5 rounded-full border border-slate-300 text-slate-400 hover:text-amber-600 hover:border-amber-400 transition shrink-0" :title="helpTopics['admin-shift']?.body?.[0] || 'Abrir ayuda contextual'" aria-label="Ayuda: Horario del turno y zona horaria"><svg class="w-3.5 h-3.5 text-amber-500 fill-amber-400/20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></button></h2>
+          <p class="text-xs text-slate-500 mt-1">Las noticias duran 1 día (24 horas) en el ciclo operativo activo.</p>
+        </div>
+        <form @submit.prevent="saveIdentitySettings()" class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <label class="block text-xs font-semibold text-slate-700">Zona horaria del turno
+              <input type="text" x-model="settingsForm.timezone_name" list="tz-list" required class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+              <datalist id="tz-list"><template x-for="tz in (publicConfig.timezones || [])" :key="tz"><option :value="tz"></option></template></datalist>
+            </label>
+            <label class="block text-xs font-semibold text-slate-700">Hora local de inicio del turno
+              <select x-model.number="settingsForm.window_cutoff_hour" required class="mt-1 w-full h-10 px-3 text-xs border border-slate-200 rounded-xl font-normal bg-white">
+                <option value="0">00:00 hs (Medianoche)</option>
+                <option value="6">06:00 hs (6:00 a. m. — Mañana / Arranque habitual)</option>
+                <option value="7">07:00 hs (7:00 a. m. — Mañana)</option>
+                <option value="8">08:00 hs (8:00 a. m. — Jornada laboral)</option>
+                <option value="12">12:00 hs (Mediodía)</option>
+                <option value="18">18:00 hs (18:00 hs — Tarde)</option>
+                <template x-for="h in [1,2,3,4,5,9,10,11,13,14,15,16,17,19,20,21,22,23]" :key="h">
+                  <option :value="h" x-text="`${h < 10 ? '0' + h : h}:00 hs`"></option>
+                </template>
+              </select>
+              <span class="mt-1 block text-[11px] font-normal text-slate-500">El turno dura 24 horas exactas desde esta hora.</span>
+            </label>
+          </div>
+          <div class="flex justify-end">
+            <button type="submit" class="h-9 px-5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition">Guardar horario</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- 7. FORMATO DEL WORD -->
+      <div x-show="activeView === 'report'" class="space-y-6 max-w-3xl">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-600">07 · Exportación</span>
+          <h2 class="text-2xl font-bold tracking-tight text-slate-900 mt-1 flex items-center gap-2.5">Formato del documento Word <button type="button" @click.stop="openHelp('admin-report')" class="help-btn inline-flex items-center justify-center w-5 h-5 rounded-full border border-slate-300 text-slate-400 hover:text-amber-600 hover:border-amber-400 transition shrink-0" :title="helpTopics['admin-report']?.body?.[0] || 'Abrir ayuda contextual'" aria-label="Ayuda: Formato del documento Word"><svg class="w-3.5 h-3.5 text-amber-500 fill-amber-400/20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></button></h2>
+        </div>
+        <form @submit.prevent="saveReportSettings()" class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <label class="block text-xs font-semibold text-slate-700">Tamaño de papel
+              <select x-model="settingsForm.word_page_size" class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal"><option value="A4">A4</option><option value="Letter">Carta</option></select>
+            </label>
+            <label class="block text-xs font-semibold text-slate-700">Orientación
+              <select x-model="settingsForm.word_orientation" class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal"><option value="portrait">Vertical</option><option value="landscape">Horizontal</option></select>
+            </label>
+          </div>
+          <label class="block text-xs font-semibold text-slate-700">Título del encabezado en el Word
+            <input type="text" x-model="settingsForm.export_document_title" required class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+          </label>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <label class="block text-xs font-semibold text-slate-700">Tipografía Word
+              <select x-model="settingsForm.word_font_name" class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+                <option value="Arial">Arial</option>
+                <option value="Calibri">Calibri</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Verdana">Verdana</option>
+                <option value="Tahoma">Tahoma</option>
+                <option value="Trebuchet MS">Trebuchet MS</option>
+              </select>
+            </label>
+            <label class="block text-xs font-semibold text-slate-700">Tamaño texto (pt)
+              <input type="number" step="0.5" min="8" max="16" x-model.number="settingsForm.word_font_size" required class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+            </label>
+            <label class="block text-xs font-semibold text-slate-700">Tamaño título (pt)
+              <input type="number" step="0.5" min="10" max="24" x-model.number="settingsForm.word_title_size" required class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+            </label>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <label class="block text-xs font-semibold text-slate-700">Interlineado
+              <input type="number" step="0.05" min="1" max="2.5" x-model.number="settingsForm.word_line_spacing" required class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+            </label>
+            <label class="block text-xs font-semibold text-slate-700">Color barra región (Hex)
+              <div class="mt-1 flex items-center gap-2">
+                <input type="color" x-model="settingsForm.word_region_shading_hex" class="h-9 w-12 shrink-0 cursor-pointer rounded border-0 bg-transparent">
+                <input type="text" x-model="settingsForm.word_region_shading_hex" pattern="^#[0-9a-fA-F]{6}$" required class="w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-mono uppercase">
+              </div>
+            </label>
+            <label class="block text-xs font-semibold text-slate-700">Alineación del texto
+              <select x-model="settingsForm.word_justify_text" class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+                <option :value="true">Justificado clásico</option>
+                <option :value="false">Alineado a la izquierda</option>
+              </select>
+            </label>
+          </div>
+
+          <fieldset class="rounded-xl border border-slate-200 p-4 space-y-3">
+            <legend class="text-xs font-bold text-slate-800 px-1">Márgenes de página (en centímetros)</legend>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <label class="block text-xs font-semibold text-slate-700">Superior (cm)
+                <input type="number" step="0.1" min="0.5" max="5" x-model.number="settingsForm.word_margin_top_cm" required class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+              </label>
+              <label class="block text-xs font-semibold text-slate-700">Inferior (cm)
+                <input type="number" step="0.1" min="0.5" max="5" x-model.number="settingsForm.word_margin_bottom_cm" required class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+              </label>
+              <label class="block text-xs font-semibold text-slate-700">Izquierdo (cm)
+                <input type="number" step="0.1" min="0.5" max="5" x-model.number="settingsForm.word_margin_left_cm" required class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+              </label>
+              <label class="block text-xs font-semibold text-slate-700">Derecho (cm)
+                <input type="number" step="0.1" min="0.5" max="5" x-model.number="settingsForm.word_margin_right_cm" required class="mt-1 w-full h-9 px-3 text-xs border border-slate-200 rounded-xl font-normal">
+              </label>
+            </div>
+          </fieldset>
+
+          <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50/50 cursor-pointer">
+            <input type="checkbox" x-model="settingsForm.include_empty_interest_sections" class="mt-0.5 rounded text-indigo-600">
+            <div class="text-xs">
+              <strong class="font-semibold text-slate-900 block">Mostrar zonas sin noticias</strong>
+              <span class="text-slate-500">Incluye el apartado de la provincia con la leyenda "SIN NOVEDAD".</span>
+            </div>
+          </label>
+          <div class="rounded-xl border border-slate-200 p-4 space-y-3">
+            <div>
+              <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">Orden de las zonas en el informe </h3>
+              <p class="mt-1 text-xs text-slate-500">Se exportarán las noticias de estas zonas en el orden mostrado.</p>
+            </div>
+            <div class="max-h-80 overflow-y-auto space-y-1.5">
+              <template x-for="(zona, indice) in interestProvinces" :key="normalizarNombreRegion(zona)">
+                <div class="flex items-center justify-between gap-3 px-3.5 py-2 rounded-xl border border-slate-200 bg-white">
+                  <div class="flex min-w-0 items-center gap-3"><span class="w-5 h-5 shrink-0 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold flex items-center justify-center" x-text="indice + 1"></span><strong class="truncate text-xs font-semibold text-slate-800" x-text="zona"></strong></div>
+                  <div class="flex shrink-0 items-center gap-1.5">
+                    <button type="button" :aria-label="`Mover ${zona} hacia arriba`" @click="moveZone(indice, -1)" :disabled="indice === 0" class="p-1 text-slate-500 hover:text-slate-900 disabled:opacity-20">↑</button>
+                    <button type="button" :aria-label="`Mover ${zona} hacia abajo`" @click="moveZone(indice, 1)" :disabled="indice === interestProvinces.length - 1" class="p-1 text-slate-500 hover:text-slate-900 disabled:opacity-20">↓</button>
+                  </div>
+                </div>
+              </template>
+              <p x-show="interestProvinces.length === 0" class="py-4 text-center text-xs text-slate-500">Primero agregá zonas en el apartado Zonas de interés.</p>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <button type="submit" class="h-9 px-5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition">Guardar formato</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- 8. ESTADO DEL SISTEMA -->
+      <div x-show="activeView === 'system'" class="space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-600">08 · Monitoreo</span>
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900 mt-1 flex items-center gap-2.5">Estado del sistema </h2>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <button @click="runAdminScrapeNow()" class="h-9 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold">Barrido completo</button>
+            <button @click="retryFailedArticles()" class="h-9 px-3.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700">Reintentar fallidos</button>
+            <button @click="loadAdminData()" class="h-9 px-3.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700">Actualizar métricas</button>
+          </div>
+        </div>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-4" aria-label="Consumo de tokens de IA">
+          <article class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+            <div class="flex items-center justify-between gap-2">
+              <h3 class="text-sm font-bold text-slate-900">Uso diario de tokens (Real)</h3>
+              <span class="text-xs font-semibold text-indigo-700" x-text="`${(systemStatus.tokens_daily_requests || 0).toLocaleString('es-AR')} solicitudes`"></span>
+            </div>
+            <p class="mt-2 text-xs text-slate-600" x-text="`${(systemStatus.tokens_daily_used || 0).toLocaleString('es-AR')} tokens informados hoy · ${ (systemStatus.tokens_daily_input || 0).toLocaleString('es-AR')} entrada / ${(systemStatus.tokens_daily_output || 0).toLocaleString('es-AR')} salida`"></p>
+          </article>
+          <article class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+            <div class="flex items-center justify-between gap-2">
+              <h3 class="text-sm font-bold text-slate-900">Uso del mes calendario</h3>
+              <span class="text-xs font-semibold text-indigo-700" x-text="`${(systemStatus.tokens_monthly_requests || 0).toLocaleString('es-AR')} solicitudes`"></span>
+            </div>
+            <p class="mt-2 text-xs text-slate-600" x-text="`${(systemStatus.tokens_monthly_used || 0).toLocaleString('es-AR')} tokens este mes · ${(systemStatus.tokens_monthly_input || 0).toLocaleString('es-AR')} entrada / ${(systemStatus.tokens_monthly_output || 0).toLocaleString('es-AR')} salida`"></p>
+          </article>
+        </section>
+
+        <section class="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm" aria-label="Cuotas oficiales">
+          <h3 class="text-sm font-bold text-slate-900">Cuotas oficiales del proveedor</h3>
+          <p class="mt-2 text-xs text-slate-600">No hay un límite oficial diario o mensual de tokens verificable para esta conexión. Se muestran los tokens que el proveedor informa en las respuestas; el porcentaje de cuota no está disponible.</p>
+          <p class="mt-2 text-[11px] text-slate-500" x-text="'Fuente: respuestas del proveedor · Panel consultado: ' + (systemStatus.tokens_stats_queried_at ? new Date(systemStatus.tokens_stats_queried_at).toLocaleString('es-AR') : 'sin datos')"></p>
+        </section>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+            <span class="text-[11px] font-semibold text-slate-400">Fuentes conectadas</span>
+            <strong class="block text-2xl font-extrabold text-slate-900 my-1" x-text="systemStatus.sources ?? 0"></strong>
+            <span class="text-[11px] text-slate-500">Medios activos</span>
+          </div>
+          <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+            <span class="text-[11px] font-semibold text-slate-400">Noticias del turno</span>
+            <strong class="block text-2xl font-extrabold text-slate-900 my-1" x-text="systemStatus.total_articles ?? 0"></strong>
+            <span class="text-[11px] text-slate-500" x-text="`${systemStatus.completed ?? 0} listas · ${systemStatus.queued ?? 0} en cola · ${systemStatus.failed ?? 0} fallos`"></span>
+          </div>
+          <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+            <span class="text-[11px] font-semibold text-slate-400">Base de datos</span>
+            <strong class="block text-2xl font-extrabold text-slate-900 my-1" x-text="systemStatus.db_size_label || '0 KB'"></strong>
+            <span class="text-[11px] text-slate-500">Purga automática 24 hs</span>
+          </div>
+          <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+            <span class="text-[11px] font-semibold text-slate-400">Motor IA</span>
+            <strong class="block text-2xl font-extrabold text-indigo-600 my-1" x-text="systemStatus.ai_provider_name || 'Sin configurar'"></strong>
+            <span class="text-[11px] text-slate-500 truncate block" x-text="systemStatus.ai_model || ''"></span>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <div x-show="sourceRegionDialog" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4" @click.self="sourceRegionDialog=false">
+    <form @submit.prevent="saveSourceRegion(false)" class="w-full max-w-md space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl">
+      <div>
+        <h3 class="text-base font-bold text-slate-900">Clasificar medio</h3>
+        <p class="mt-1 text-xs text-slate-500" x-text="sourceRegionSource?.name || ''"></p>
+      </div>
+      <label class="block text-xs font-semibold text-slate-700">Provincia, ciudad o región
+        <input type="text" x-model="sourceRegionValue" list="region-options" required maxlength="100" class="mt-1 h-10 w-full rounded-xl border border-slate-200 px-3 text-xs font-normal">
+        <datalist id="region-options"><template x-for="region in (publicConfig.regions || [])" :key="region"><option :value="region"></option></template></datalist>
+      </label>
+      <div class="flex flex-wrap justify-between gap-2">
+        <button type="button" @click="saveSourceRegion(true)" class="rounded-xl border border-slate-200 px-3 py-2 text-xs font-semibold text-slate-700">Volver a detección automática</button>
+        <div class="flex gap-2">
+          <button type="button" @click="sourceRegionDialog=false" class="rounded-xl px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100">Cancelar</button>
+          <button type="submit" class="rounded-xl bg-indigo-600 px-4 py-2 text-xs font-semibold text-white">Guardar provincia</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- MODAL: RENOMBRAR MEDIO -->
+  <div x-show="sourceNameDialog" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4" @click.self="sourceNameDialog=false" @keydown.escape.window="sourceNameDialog=false">
+    <form @submit.prevent="saveSourceName()" class="w-full max-w-md space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl">
+      <div>
+        <h3 class="text-base font-bold text-slate-900">Cambiar el nombre del medio</h3>
+        <p class="mt-1 text-xs text-slate-500 break-all" x-text="sourceNameSource?.base_url || ''"></p>
+      </div>
+      <label class="block text-xs font-semibold text-slate-700">Nombre que se muestra
+        <input type="text" x-model="sourceNameValue" x-ref="sourceNameInput" required maxlength="100" class="mt-1 h-10 w-full rounded-xl border border-slate-200 px-3 text-xs font-normal focus:outline-none focus:border-indigo-500">
+      </label>
+      <div class="flex justify-end gap-2">
+        <button type="button" @click="sourceNameDialog=false" class="rounded-xl px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100">Cancelar</button>
+        <button type="submit" :disabled="savingSourceName" class="rounded-xl bg-indigo-600 px-4 py-2 text-xs font-semibold text-white disabled:opacity-50" x-text="savingSourceName ? 'Guardando...' : 'Guardar nombre'"></button>
+      </div>
+    </form>
+  </div>
+
+  <!-- MODAL: AYUDA (foquito amarillo) -->
+  <div x-show="help.open" x-cloak x-transition.opacity class="fixed inset-0 z-[60] flex items-center justify-center bg-slate-900/60 p-4" @click.self="closeHelp()" @keydown.escape.window="closeHelp()" role="dialog" aria-modal="true" :aria-label="helpCurrent?.title || 'Ayuda'">
+    <div class="w-full max-w-lg max-h-[85vh] overflow-y-auto rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl space-y-3">
+      <div class="flex items-start justify-between gap-3">
+        <div class="flex items-center gap-2.5">
+          <span class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-amber-50 text-amber-600 border border-amber-200">
+            <svg class="w-4 h-4 fill-amber-400/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
+          </span>
+          <h3 class="text-base font-bold text-slate-900" x-text="helpCurrent?.title"></h3>
+        </div>
+        <button type="button" @click="closeHelp()" class="text-slate-400 hover:text-slate-700" aria-label="Cerrar ayuda">✕</button>
+      </div>
+      <template x-for="(parrafo, i) in (helpCurrent?.body || [])" :key="'p' + i">
+        <p class="text-xs leading-relaxed text-slate-600" x-text="parrafo"></p>
+      </template>
+      <template x-if="(helpCurrent?.steps || []).length">
+        <ol class="list-decimal space-y-1 pl-5 text-xs leading-relaxed text-slate-700">
+          <template x-for="(paso, i) in helpCurrent.steps" :key="'s' + i"><li x-text="paso"></li></template>
+        </ol>
+      </template>
+      <template x-if="helpCurrent?.tip">
+        <p class="rounded-xl border border-indigo-200/60 bg-indigo-50 px-3 py-2 text-[11px] leading-relaxed text-slate-700"><strong>Consejo:</strong> <span x-text="helpCurrent.tip"></span></p>
+      </template>
+      <div class="flex justify-end pt-1">
+        <button type="button" @click="closeHelp()" class="h-9 rounded-xl bg-indigo-600 px-4 text-xs font-semibold text-white">Entendido</button>
+      </div>
+    </div>
+  </div>
+
+  <div x-show="unsavedDialogOpen" x-cloak x-transition.opacity @keydown.escape.window="cancelAdminPrompt()" class="fixed inset-0 z-[70] flex items-center justify-center bg-slate-900/60 p-4" role="dialog" aria-modal="true" aria-labelledby="unsaved-title">
+    <section x-transition class="w-full max-w-md space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl">
+      <div>
+        <h2 id="unsaved-title" class="text-base font-bold text-slate-900">Hay cambios sin guardar</h2>
+        <p class="mt-1 text-xs text-slate-600">Elegí si querés guardar estos cambios antes de salir:</p>
+      </div>
+      <ul class="max-h-40 space-y-1 overflow-auto text-xs text-slate-700"><template x-for="cambio in adminChanges" :key="cambio"><li x-text="'• ' + cambio"></li></template></ul>
+      <div class="flex flex-wrap justify-end gap-2">
+        <button type="button" @click="cancelAdminPrompt()" class="h-9 rounded-xl px-3 text-xs font-semibold text-slate-600 hover:bg-slate-100">Seguir editando</button>
+        <button type="button" @click="discardAllAdminSettings()" class="h-9 rounded-xl border border-slate-200 px-3 text-xs font-semibold text-slate-700 hover:bg-slate-50">Descartar</button>
+        <button type="button" @click="saveAllAdminSettings()" class="h-9 rounded-xl bg-indigo-600 px-3 text-xs font-semibold text-white hover:bg-indigo-500">Guardar y salir</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- MODAL DE LOGIN ADMIN -->
+  <div x-show="loginModalOpen" x-cloak x-transition.opacity @keydown.escape.window="loginModalOpen = false" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <form @submit.prevent="submitLogin()" x-transition class="bg-white rounded-2xl border border-slate-200 p-6 w-full max-w-sm shadow-2xl space-y-4">
+      <div>
+        <h3 class="text-base font-bold text-slate-900">Acceso administrativo</h3>
+        <p class="text-xs text-slate-500 mt-1">Ingresá la clave de administrador para gestionar el sistema.</p>
+      </div>
+      <input type="text" x-model="adminUsernameInput" autocomplete="username" placeholder="Usuario administrador..." required class="w-full h-10 px-3.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-600">
+      <input type="password" x-model="adminPasswordInput" x-ref="passInput" autocomplete="current-password" placeholder="Contraseña..." required class="w-full h-10 px-3.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-600">
+      <div class="flex justify-end gap-2">
+        <button type="button" @click="loginModalOpen = false" class="h-9 px-4 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100">Cancelar</button>
+        <button type="submit" class="h-9 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold">Ingresar</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- TOAST NOTIFICATIONS -->
+  <div x-show="toast.visible" x-transition x-cloak class="fixed bottom-5 right-5 z-50 px-4 py-3 rounded-xl shadow-xl text-xs font-semibold text-white flex items-center gap-2" :class="toast.kind === 'error' ? 'bg-rose-600' : 'bg-slate-900'">
+    <span x-text="toast.message"></span>
+  </div>
+
+</body>
+</html>
