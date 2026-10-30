@@ -13,7 +13,7 @@ function pressApp() {
   // CONFIGURACIÓN DE URL DEL BACKEND (DESACOPLADO)
   // Reemplazar esta constante con la URL real del backend en Neon/PaaS
   // ==============================================================================
-  const BACKEND_URL = 'https://sintesis-backend-658k.onrender.com/'; // <-- ¡CAMBIAR ACÁ!
+  const BACKEND_URL = 'https://sintesis-backend-658k.onrender.com';
 
   function horaLocal(fecha, zona) {
     try {
